@@ -1,7 +1,7 @@
 import streamlit as st
 st.write(""" 
 # HELLO WORLD 
-***How*** are you? """)
+How are you? """)
 
 number = st.slider("Pick a number", 0, 100)
 
