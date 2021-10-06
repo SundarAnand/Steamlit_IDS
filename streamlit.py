@@ -11,7 +11,7 @@ st.write("""
 You have chosen """ + str(number) + """ number and """ + str(date) + """ date
 """)
 
-country = pd.read_csv("vaccination dataset/country.csv")
+#country = pd.read_csv("vaccination dataset/country.csv")
 
 data = pd.DataFrame({
     'awesome cities' : ['Chicago', 'Minneapolis', 'Louisville', 'Topeka'],
