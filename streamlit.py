@@ -83,8 +83,8 @@ figcovid = px.scatter(vaccine_df, x="percentage_vaccinated", y="percentage_activ
     animation_group="country", range_x=[0,max(vaccine_df['percentage_vaccinated'])], range_y=[0,max(vaccine_df['percentage_active'])], color='country', size='population')
 
 # Increasing the animation speed
-figcovid.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 10
-figcovid.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = 4
+figcovid.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 30
+figcovid.layout.updatemenus[0].buttons[0].args[1]['transition']['duration'] = 15
 
 # Displaying the graph
 figcovid.update_layout(width=800)
