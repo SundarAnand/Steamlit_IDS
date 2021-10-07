@@ -80,7 +80,7 @@ vaccine_df = vaccine_df[(vaccine_df['country'].isin(countries))]
 
 # Plotting the graph
 figcovid = px.scatter(vaccine_df, x="percentage_vaccinated", y="percentage_active", animation_frame="date", 
-    animation_group="country", range_x=[-1,max(vaccine_df['percentage_vaccinated'])], range_y=[-5,max(vaccine_df['percentage_active'])], color='country', size='population')
+    animation_group="country", range_x=[-5,max(vaccine_df['percentage_vaccinated'])], range_y=[-1,max(vaccine_df['percentage_active'])], color='country', size='population')
 
 # Increasing the animation speed
 figcovid.layout.updatemenus[0].buttons[0].args[1]['frame']['duration'] = 30
