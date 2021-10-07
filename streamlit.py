@@ -43,7 +43,7 @@ else:
     conditioned_df['date'] = conditioned_df['date'].dt.strftime('%Y-%m-%d')
     conditioned_df = conditioned_df.sort_values(by=['percentage_vaccinated', 'date', 'country'])
 
-    # Plotting the graph
+    # Plotting the graph and animating it
     fig = px.bar(conditioned_df, x='country', y=['percentage_active', 'percentage_vaccinated'], animation_frame='date', barmode='group')
 
     # Increasing the animation speed
