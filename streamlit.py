@@ -7,6 +7,8 @@ from plotly.subplots import make_subplots
 
 ############################ COVID DATA ############################
 
+st.write("Annie here this time")
+
 # Introduction
 st.write(""" 
 # Interactive Data Science
