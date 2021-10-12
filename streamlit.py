@@ -7,7 +7,7 @@ from plotly.subplots import make_subplots
 
 ############################ COVID DATA ############################
 
-st.write("Annie here this time")
+st.write("Annie here this time by myselfff :)")
 
 # Introduction
 st.write(""" 
