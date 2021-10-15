@@ -389,3 +389,37 @@ fig = px.scatter(min_df, x="country", y="death_rate", size="death_rate")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
+
+st.write("""
+#### 4. Which companies might be worth investing in during the pandemic period?
+#### We observe the difference in stock values between dates: 10-10-2019 and 28-09-2021
+""")
+
+# converting the date column values into datetime format
+global_df["date"]=pd.to_datetime(global_df["date"],format="%d/%m/%y")
+# dropping the active cases column as it contains NAN values within the range we want to observe
+global_df=global_df.drop(["active_cases"], axis=1)
+# dropping all rows with nan values
+global_df_nona=global_df.dropna()
+# taking only the row of data having min date and the row of data having max date (firs and last row of global_df_nona)
+global_df_nona=global_df_nona[(global_df_nona["date"]==min(global_df_nona["date"])) | (global_df_nona["date"]==max(global_df_nona["date"]))]
+
+# we use melt to get the company names as a column called variable and the start day and end day stock values are present in value
+df=pd.melt(global_df_nona, id_vars=['date'], value_vars=company_list)
+# the dataframe is then sorted first by variable, then by value
+df.sort_values(by=["variable","value"])
+# the difference in first and last day stock values are calculated
+df["diff"]=df["value"].diff()
+# if the difference is negative then fill it with the value below it
+# (won't work if last day stock of one company is lower than first day stock of next company)
+df.loc[df["diff"]<=0, "diff"]=df['diff'].shift(-1)
+# if value is nan then fill with value below it
+df['diff'] = df['diff'].fillna(df['diff'].shift(-1))
+
+# PLOTTING A LINE GRAPH
+fig = px.line(df, "variable", "value", color='variable', text="value", hover_data=["diff"])
+fig.update_traces(textposition="bottom right")
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(showgrid=False)
+# writing to streamlit
+st.write(fig)
