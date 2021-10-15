@@ -288,10 +288,11 @@ for i in graph_list:
     # Displaying the chart
     st.write(subfig)
 
+############################ Questions and Answer ############################
+
 st.write("""
 ### Some questions that we can answer from this analysis are...
 """)
-
 
 # Getting the bubble comparison for percentage_active
 
@@ -328,7 +329,7 @@ st.write(fig)
 
 # Getting the bubble comparison for percentage_vaccinated
 st.write("""
-####2. Let's see which countries did the best and worst in getting vaccinated
+#### 2. Let's see which countries did the best and worst in getting vaccinated
 """)
 # Grouping by country to get percentage vaccinated min and max
 df = country_df.groupby('country').agg({'percentage_vaccinated':'max'})[['percentage_vaccinated']].reset_index()
@@ -351,6 +352,40 @@ st.write("""
 """)
 min_df = df.sort_values(by='vacc_max', ascending=False).head(10)
 fig = px.scatter(min_df, x="country", y="vacc_max", size="vacc_max")
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(showgrid=False)
+st.write(fig)
+
+# Getting the count per minute before and after lockdown
+st.write("""
+#### 3. Let's see which countries had the best and worst death rate
+""")
+
+# Getting the total number of hours
+num_hours = ((max(country_df['date']) - min(country_df['date'])).days)*24
+country_df['death_rate'] = country_df['cumulative_total_deaths']/num_hours
+
+# Grouping by country to get total death count
+df = country_df.groupby('country').agg({'death_rate':'max'})[['death_rate']].reset_index()
+df.columns = ['country', 'death_rate']
+
+# Plotting the top 10 countries with max and min
+# Max
+st.write("""
+##### Lets look at top 10 countries that haven't done good
+""")
+max_df = df.sort_values(by='death_rate', ascending=False).head(10)
+fig = px.scatter(max_df, x="country", y="death_rate", size="death_rate")
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(showgrid=False)
+st.write(fig)
+
+# Min
+st.write("""
+##### Lets look at top 10 countries that have done good
+""")
+min_df = df.sort_values(by='death_rate').head(10)
+fig = px.scatter(min_df, x="country", y="death_rate", size="death_rate")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
