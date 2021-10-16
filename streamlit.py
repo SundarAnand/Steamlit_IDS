@@ -11,7 +11,7 @@ from plotly.subplots import make_subplots
 st.write(""" 
 # Interactive Data Science
 ### By Annie Johnson and Sundar Anand
-### Interesting trends when pandemic happened""")
+### Interesting trends when the pandemic happened""")
 
 # Reading the file
 country_df = pd.read_csv("vaccination dataset/country.csv")
@@ -25,7 +25,7 @@ vaccine_df = vaccine_df.sort_values(by='date')
 country_list = sorted(vaccine_df['country'].unique())
 
 st.write("""
-#### Let's compare the vaccination timeseries data between countries at once...
+#### Let's compare the vaccination time-series data between different countries in the same time period...
 """)
 
 # Country wise comparison bar graphs
@@ -59,7 +59,7 @@ fig.update_layout(width=800)
 st.plotly_chart(fig, use_container_width=False)
 
 st.write("""
-#### Take turns to see the vaccination percentage and active case count across countries at different dates
+#### Take turns to see the vaccination percentage and active case count across countries on different dates
 """)
 # Getting country and date as input
 default = country_list.index('United States')
@@ -75,10 +75,10 @@ per = round(vacc_info_df['percentage_vaccinated'].iloc[0], 2)
 count = country_df[(country_df['country'] == option) & (country_df['date'] == pd.to_datetime(str(date)))]['active_cases'].iloc[0]
 
 # Displaying the results
-st.write("The total vaccinated people are " + str(vacc) + ", the vaccination percentage as of " + str(date) + " is " + str(per) + "% yet the active cases count is " + str(count))
+st.write("The total number of vaccinated people are " + str(vacc) + ", the vaccination percentage as of " + str(date) + " is " + str(per) + "%, yet the active cases count is " + str(count))
 
 # Vaccination vs Active rate graph for multiple countries
-countries = st.multiselect("Which countries do you like to see?", country_list, ['United States', 'India', 'Brazil', 'Germany', 'United Kingdom', 'Russia', 'France', 'Malaysia', 'Japan'])
+countries = st.multiselect("Which countries would you like to see?", country_list, ['United States', 'India', 'Brazil', 'Germany', 'United Kingdom', 'Russia', 'France', 'Malaysia', 'Japan'])
 vaccine_df['date'] = pd.to_datetime(vaccine_df['date']).dt.strftime('%Y-%m-%d')
 vaccine_df = vaccine_df[(vaccine_df['country'].isin(countries))]
 
@@ -140,14 +140,14 @@ for i in company_list:
 counter = 0
 
 st.write("""
-#### Sad times. But how the big companies delt with this? Was there any segment that got beaten up or flourished in this pandemic?
+#### Sad times. But how did big companies deal with this? Was there any segment that got beaten up or flourished in this pandemic?
 #### Let's consider each company from each sector and see how they have done
 """)
 
 # Plotting social media stocks
 st.write ("""
 #### 1. Social Media
-##### Ofcourse the choice of company will be Facebook which owns Facebook, WhatsApp and Instagram.
+##### Of course the choice of company will be Facebook as it owns Facebook, WhatsApp and Instagram.
 ##### Let's see their stock value over this period of time along with COVID count across the globe.
 """)
 
@@ -155,7 +155,7 @@ st.write ("""
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### We can see that the Facebook stocks increased the COVID count which kind of explains that once lockdowns have been announced people started to stay in side their house and hence social media became their only entertainment.
+##### We can see that the Facebook stocks increased with the COVID count which can be explained as once lockdowns were announced, people started to stay at home for longer and hence social media became their one of their main sources of entertainment.
 
 ##### Let's look at their stock price against the vaccination count.
 """)
@@ -165,13 +165,13 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### Vaccination didn't really affect FB's stock by a lot which shows that the FB shares were highly influenced by the lockdown and not exactly but the COVID count.
+##### Vaccination didn't really affect FB's stock by a lot which shows that the FB shares were highly influenced by the lockdown and not exactly by the COVID count.
 
 #### 2. Video Communication
-##### Video Communication have become one of the inevitable parts of our life in today's normal.
-##### Right from education to team meets and even family or friends get together were hosted on video communication platforms.
+##### Video Communication has become an inevitable part of our life in today's normal.
+##### Right from education or team meets to family/friends get-together functions, every event was hosted on some video communication platform.
 
-##### In recent days, even though Apple and Google have up their game in this domain, it has always been ZOOM that dominated it
+##### In the recent days, even though Apple and Google have upped their game in this domain, it has always been ZOOM that dominated this domain.
 ##### Let's see how Zoom's stocks flew in the last couple of years.
 """)
 
@@ -180,7 +180,7 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### It is evident enough to show that Zoom has been through a drastic financial growth during this period of uncertainty.
+##### It is evident enough that Zoom has been through a drastic financial growth during this period of uncertainty.
 
 ##### Let's look at their stock price against the vaccination count.
 """)
@@ -191,11 +191,11 @@ st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
 ##### Vaccination didn't really become a factor in Zoom's stocks.
-##### Zoom just enabled people to meet irrespective of the physical meeting guidlines mandated.
+##### Zoom just enabled people to meet irrespective of the physical meeting guidelines that were mandated.
 
 #### 3. Online Food Ordering
-##### Once lockdown was established, going out for daily routines like grocery shopping, restaurents and vacation became tedious.
-##### Many companies emerged in this period to address this issue. But one company that has always had an solution was UberEATS.
+##### Once the lockdown was established, going out for daily errands like grocery shopping, or going to restaurants and for vacation became tedious.
+##### Many companies emerged in this period to address this issue. But one company that has always had a solution was UberEATS.
 
 ##### UberEats focuses on online food ordering and delivery as its primary goal.
 ##### Let's see COVID did to UberEats's stocks.
@@ -206,10 +206,10 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### As mentioned earlier, the COVID just increased the demand for the service that UberEATS was already providing with high robustness.
+##### As mentioned earlier, COVID increased the demand for the service that UberEATS was already providing with high robustness.
 ##### It was kind of obvious to predict that the UberEATs stocks will increase along with the COVID rate and lockdowns.
 
-##### Did vaccination rate make any imapct?
+##### Did vaccination rate make any impact?
 """)
 
 # Plotting the third graph
@@ -217,14 +217,14 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### Seems like the vaccination rate didn't really domainate any field. But we are not done with the analysis yet...
+##### Seems like the vaccination rate didn't really dominate any field. But we are not done with the analysis yet...
 
-#### 4. Medical department
+#### 4. Medical sector
 ##### Several medical companies across the globe made generating COVID vaccine as their primary goal in 2020.
-##### Many companies succeed it but one company that was fast enough to push their success to a production level was Moderna.
+##### Many companies succeed at it but one company that was fast enough to push their success to a production level was Moderna.
 
-##### Many people in today's work have taken/taking Moderna vaccines to protect themselves from the deadly virus.
-##### Did the raise in COVID numbers make any impact to their stocks as well?
+##### Many people in today's work have taken/are taking Moderna vaccines to protect themselves from the deadly virus.
+##### Did the rise in COVID numbers make any impact on their stock value as well?
 """)
 
 # Plotting the third graph
@@ -232,8 +232,8 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### That's a YES!! The raise in COVID numbers also trigger the Moderna stocks.
-##### We can see that the Moderna stock value increased along with the COVID active cases number expressing that people started to believe that Moderna will be their saviour in this battle.
+##### That's a YES!! The rise in COVID numbers also boosted Moderna's stocks.
+##### We can see that the Moderna stock value increased along with the COVID active cases number indicating that people started to believe that Moderna will be their saviour in this battle.
 
 ##### But why is there a sudden spike at the end? Was it because the vaccination got released?
 """)
@@ -247,11 +247,11 @@ st.write ("""
 """)
 
 st.write ("""
-##### These are the four domains that we wanted to present in this article to understand how each department changed their game to make use of this pandemic period.
+##### These are the four domains that we wanted to present in this article to understand how each sector (entertainment/social media, video communication, online food ordering services, medical) changed their game to make use of this pandemic period.
 """)
 
 st.write (""" 
-##### Here is the final graph will all the stock values of the companies we saw together 
+##### Here is the final graph depicts the stock values of all the companies together 
 """)
 
 # Meting the dataframe to get all the values
@@ -288,6 +288,7 @@ for i in graph_list:
 # Profit predictor
 st.write("""
 #### Which date would be the best (maximum profit) to sell your stock, for a given company, given the day you bought the stock?
+##### This is a useful tool to get an idea of how much profit could be made from each company during the COVID-19 period.
 """)
 # converting the date column values into datetime format
 global_df["date"]=pd.to_datetime(global_df["date"],format="%d/%m/%y").dt.date
@@ -346,7 +347,7 @@ fig.update_yaxes(showgrid=False)
 st.write(fig)
 
 st.write("""
-###### British Birgin Islands has the most active covid percentage of 5.5%
+###### British Virgin Islands has the most active covid percentage of 5.5%
 """)
 
 # Min
@@ -439,7 +440,7 @@ fig.update_yaxes(showgrid=False)
 st.write(fig)
 
 st.write("""
-###### Few countries never had death
+###### Few countries never had any deaths due to the COVID-19 pandemic 
 """)
 
 # Q4
@@ -470,7 +471,7 @@ fig.update_yaxes(showgrid=False)
 st.write(fig)
 
 st.write("""
-###### The country that had massive stock increment was Moderna
+###### The company that had the most massive stock increment was Moderna
 """)
 
 # Q5
@@ -493,7 +494,16 @@ fig.update_yaxes(showgrid=False)
 st.write(fig)
 
 st.write("""
-###### The optimal company that anyone would have incested during pandemic
-###### 1. Interms of Profit - Moderna (Profit of 3305% in 22 months)
-###### 2. Interms of Quickness - Zoom (Profit of 823% in one year)
+###### The optimal company for someone to have invested in during pandemic:
+###### 1. In terms of Profit - Moderna (Profit of 3305% in 22 months)
+###### 2. In terms of Quickness - Zoom (Profit of 823% in one year)
+""")
+
+st.write("""
+#### Conclusion:
+
+###### From the analysis it is clear that there isn’t much of an overlap between the countries that fall in the category of the highest percentage of active cases and the countries that fall in the category of highest vaccination percentage. This indicates that countries with more number of active cases are probably having such a high number as their vaccination percentage is low. There are a few countries like the UK and the USA which fall in the top 10 countries having the highest number of active cases and the highest mortality. This also makes sense as the pandemic being a deadly one would result in more death in countries having more active cases.
+
+###### When we analyse the visualizations on the stock data, we can come to the conclusion that even though the most economically progressive countries like the USA and UK had probably the highest impact in terms of human lives lost, they were still able to generate so much profit in various sectors. The pandemic did not slow down the global economic growth (at least for Facebook, Zoom, UberEats and Moderna). In fact, these companies used the pandemic as an opportunity to flourish despite hindrances like social distancing and not working in-person.
+
 """)
