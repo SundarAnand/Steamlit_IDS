@@ -288,6 +288,37 @@ for i in graph_list:
     # Displaying the chart
     st.write(subfig)
 
+# Profit predictor
+st.write("""
+#### Which date would be the best (maximum profit) to sell your stock, for a given company, given the day you bought the stock?
+""")
+# converting the date column values into datetime format
+global_df["date"]=pd.to_datetime(global_df["date"],format="%d/%m/%y").dt.date
+# dropping the active cases column as it contains NAN values within the range we want to observe
+global_df=global_df.drop(["active_cases"], axis=1)
+# dropping all rows with nan values
+global_df_noNA=global_df.dropna()
+# taking only the row of data having min date and the row of data having max date (firs and last row of global_df_nona)
+global_df_nona=global_df_noNA[(global_df_noNA["date"]==min(global_df_noNA["date"])) | (global_df_noNA["date"]==max(global_df_noNA["date"]))]
+
+# Getting company and date as input
+option = st.selectbox('Pick a company', company_list, index=0)
+date_input = st.select_slider("Pick a date", options = global_df_noNA['date'].unique())
+
+# getting subset of data from this date to end
+x=global_df_noNA[global_df_noNA['date']>=date_input][option].index
+
+# getting nearest date to selected date for which stock value is present and its corresponding stock value
+nearest_date=global_df_noNA.loc[x[0]]['date']
+nearest_date_stock=global_df_noNA.loc[x[0]][option]
+
+# getting highest next stock value and corresponding date
+max_stock=max(global_df_noNA[global_df_noNA['date']>=date_input][option])
+max_stock_date=global_df_noNA[global_df_noNA[option]==max_stock]["date"]
+
+# Displaying the results
+st.write("The nearest date to the entered date for which stock data is available is " + str(nearest_date) + ". The highest profit of " + str(max_stock-nearest_date_stock) + " could be made if the stock was sold on " + max_stock_date.to_string().split()[1])
+
 ############################ Questions and Answer ############################
 
 st.write("""
@@ -390,19 +421,11 @@ fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
 
+# Q4
 st.write("""
 #### 4. Which companies might be worth investing in during the pandemic period?
 #### We observe the difference in stock values between dates: 10-10-2019 and 28-09-2021
 """)
-
-# converting the date column values into datetime format
-global_df["date"]=pd.to_datetime(global_df["date"],format="%d/%m/%y")
-# dropping the active cases column as it contains NAN values within the range we want to observe
-global_df=global_df.drop(["active_cases"], axis=1)
-# dropping all rows with nan values
-global_df_nona=global_df.dropna()
-# taking only the row of data having min date and the row of data having max date (firs and last row of global_df_nona)
-global_df_nona=global_df_nona[(global_df_nona["date"]==min(global_df_nona["date"])) | (global_df_nona["date"]==max(global_df_nona["date"]))]
 
 # we use melt to get the company names as a column called variable and the start day and end day stock values are present in value
 df=pd.melt(global_df_nona, id_vars=['date'], value_vars=company_list)
@@ -415,11 +438,31 @@ df["diff"]=df["value"].diff()
 df.loc[df["diff"]<=0, "diff"]=df['diff'].shift(-1)
 # if value is nan then fill with value below it
 df['diff'] = df['diff'].fillna(df['diff'].shift(-1))
+df["round_value"]=round(df["value"])
 
 # PLOTTING A LINE GRAPH
-fig = px.line(df, "variable", "value", color='variable', text="value", hover_data=["diff"])
-fig.update_traces(textposition="bottom right")
+fig = px.line(df, "variable", "value", color='variable', text="round_value", hover_data=["diff"])
+fig.update_traces(textposition="top right")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 # writing to streamlit
+st.write(fig)
+
+# Q5
+st.write("""
+#### 5. What is the maximum profit percentage for each company over the pandemic period?
+#### We observe the difference in stock values between dates: 10-10-2019 and 28-09-2021
+""")
+global_df_maxmin=global_df_noNA[(global_df_noNA["zoom_stock"]==min(global_df_noNA["zoom_stock"])) | (global_df_noNA["zoom_stock"]==max(global_df_noNA["zoom_stock"])) | (global_df_noNA["fb_stock"]==min(global_df_noNA["fb_stock"])) | (global_df_noNA["fb_stock"]==max(global_df_noNA["fb_stock"])) | (global_df_noNA["ubereats_stock"]==min(global_df_noNA["ubereats_stock"])) | (global_df_noNA["ubereats_stock"]==max(global_df_noNA["ubereats_stock"]))| (global_df_noNA["moderna_stock"]==min(global_df_noNA["moderna_stock"])) | (global_df_noNA["moderna_stock"]==max(global_df_noNA["moderna_stock"]))]
+df_maxmin=pd.melt(global_df_maxmin, id_vars=['date'], value_vars=company_list)
+
+a=df_maxmin.loc[df_maxmin.groupby("variable")['value'].idxmax()].reset_index(drop=True)
+b=df_maxmin.loc[df_maxmin.groupby("variable")['value'].idxmin()].reset_index(drop=True)
+df_q5=pd.concat([b,a])
+df_q5["profit_percentage"]=(a["value"]-b["value"])/b["value"]*100
+
+fig = px.line(df_q5,"date", "value", color="variable", text="date",hover_data=["profit_percentage"])
+fig.update_traces(textposition="top center")
+fig.update_xaxes(showgrid=False)
+fig.update_yaxes(showgrid=False)
 st.write(fig)
