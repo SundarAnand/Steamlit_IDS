@@ -141,7 +141,7 @@ counter = 0
 
 st.write("""
 #### Sad times. But how the big companies delt with this? Was there any segment that got beaten up or flourished in this pandemic?
-#### Let's consider each compnay from each sector and see how they have done
+#### Let's consider each company from each sector and see how they have done
 """)
 
 # Plotting social media stocks
@@ -155,8 +155,7 @@ st.write ("""
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-##### We can see that the Facebook stocks increased the COVID count which kind of explains that once lockdowns 
-##### have been announced people started to stay in side their house and hence social media became their only entertainment.
+##### We can see that the Facebook stocks increased the COVID count which kind of explains that once lockdowns have been announced people started to stay in side their house and hence social media became their only entertainment.
 
 ##### Let's look at their stock price against the vaccination count.
 """)
@@ -166,12 +165,11 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-###### Vaccination didn't really affect FB's stock by a lot which shows that the FB shares were highly influenced by the lockdown
-###### and not exactly but the COVID count.
+##### Vaccination didn't really affect FB's stock by a lot which shows that the FB shares were highly influenced by the lockdown and not exactly but the COVID count.
 
 #### 2. Video Communication
 ##### Video Communication have become one of the inevitable parts of our life in today's normal.
-##### Right from education to team meets and even family or friends get together was hosted on video communication platforms.
+##### Right from education to team meets and even family or friends get together were hosted on video communication platforms.
 
 ##### In recent days, even though Apple and Google have up their game in this domain, it has always been ZOOM that dominated it
 ##### Let's see how Zoom's stocks flew in the last couple of years.
@@ -192,8 +190,8 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-###### Vaccination didn't really become a factor in Zoom's stocks.
-###### Zoom just enabled people to meet irrespective of the physical meeting guidlines mandated.
+##### Vaccination didn't really become a factor in Zoom's stocks.
+##### Zoom just enabled people to meet irrespective of the physical meeting guidlines mandated.
 
 #### 3. Online Food Ordering
 ##### Once lockdown was established, going out for daily routines like grocery shopping, restaurents and vacation became tedious.
@@ -219,7 +217,7 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-###### Seems like the vaccination rate didn't really domainate any field. But we are not done with the analysis yet...
+##### Seems like the vaccination rate didn't really domainate any field. But we are not done with the analysis yet...
 
 #### 4. Medical department
 ##### Several medical companies across the globe made generating COVID vaccine as their primary goal in 2020.
@@ -235,8 +233,7 @@ st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
 ##### That's a YES!! The raise in COVID numbers also trigger the Moderna stocks.
-##### We can see that the Moderna stock value increased along with the COVID active cases number expressing 
-##### that people started to believe that Moderna will be their saviour in this battle.
+##### We can see that the Moderna stock value increased along with the COVID active cases number expressing that people started to believe that Moderna will be their saviour in this battle.
 
 ##### But why is there a sudden spike at the end? Was it because the vaccination got released?
 """)
@@ -246,15 +243,15 @@ counter = counter + 1
 st.write(covid_rate_stocks_list[counter])
 
 st.write ("""
-###### That's a bingo!! We can see that the successful vaccination production by Moderna has made their Stocks hit their peak value in the last two years.
+##### That's a bingo!! We can see that the successful vaccination production by Moderna has made their Stocks hit their peak value in the last two years.
 """)
 
 st.write ("""
-###### These are the four domains that we wanted to present in this article to understand how each department changed their game to make use of this pandemic period.
+##### These are the four domains that we wanted to present in this article to understand how each department changed their game to make use of this pandemic period.
 """)
 
 st.write (""" 
-#### Here is the final graph will all the stock values of the companies we saw together 
+##### Here is the final graph will all the stock values of the companies we saw together 
 """)
 
 # Meting the dataframe to get all the values
@@ -331,7 +328,7 @@ st.write("""
 country_df = country_df[(country_df['percentage_active'] >= 0) & (country_df['percentage_active'] < 70) & (country_df['percentage_vaccinated'] >= 0) & (country_df['percentage_vaccinated'] < 75)]
 
 st.write("""
-####1. Let's see which countries did the best and worst in controlling the pandemic
+#### 1. Let's see which countries did the best and worst in controlling the pandemic
 """)
 # Grouping by country to get percentage active min and max
 df = country_df.groupby('country').agg({'percentage_active':'max'})[['percentage_active']].reset_index()
@@ -348,6 +345,10 @@ fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
 
+st.write("""
+###### British Birgin Islands has the most active covid percentage of 5.5%
+""")
+
 # Min
 st.write("""
 ##### Lets look at top 10 countries that have done good
@@ -357,6 +358,10 @@ fig = px.scatter(min_df, x="country", y="active_max", size="active_max")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
+
+st.write("""
+###### Peru and China have the least active covid percentage of 0% and 0.00013% respectively
+""")
 
 # Getting the bubble comparison for percentage_vaccinated
 st.write("""
@@ -377,6 +382,10 @@ fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
 
+st.write("""
+###### Tanzania and Haiti have the least vaccination covid percentage of 0% and 0.057% respectively
+""")
+
 # Min
 st.write("""
 ##### Lets look at top 10 countries that have done good
@@ -386,6 +395,10 @@ fig = px.scatter(min_df, x="country", y="vacc_max", size="vacc_max")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
+
+st.write("""
+###### Malta and Cayman Islands have the most vaccination covid percentage of 74.92% and 74.88% respectively
+""")
 
 # Getting the count per minute before and after lockdown
 st.write("""
@@ -411,6 +424,10 @@ fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
 
+st.write("""
+###### United States and Brazil have the most death covid rate of 108.7 and 96.04 respectively per day
+""")
+
 # Min
 st.write("""
 ##### Lets look at top 10 countries that have done good
@@ -420,6 +437,10 @@ fig = px.scatter(min_df, x="country", y="death_rate", size="death_rate")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
+
+st.write("""
+###### Few countries never had death
+""")
 
 # Q4
 st.write("""
@@ -448,6 +469,10 @@ fig.update_yaxes(showgrid=False)
 # writing to streamlit
 st.write(fig)
 
+st.write("""
+###### The country that had massive stock increment was Moderna
+""")
+
 # Q5
 st.write("""
 #### 5. What is the maximum profit percentage for each company over the pandemic period?
@@ -466,3 +491,9 @@ fig.update_traces(textposition="top center")
 fig.update_xaxes(showgrid=False)
 fig.update_yaxes(showgrid=False)
 st.write(fig)
+
+st.write("""
+###### The optimal company that anyone would have incested during pandemic
+###### 1. Interms of Profit - Moderna (Profit of 3305% in 22 months)
+###### 2. Interms of Quickness - Zoom (Profit of 823% in one year)
+""")
